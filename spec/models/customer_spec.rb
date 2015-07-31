@@ -1,7 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
+  subject {build(:customer)}
+
   it "has a valid factory" do
-    expect(build(:admin)).to be_valid
+    expect(subject).to be_valid
+  end
+
+  it "is does pass the admin check" do
+    expect(subject).to_not be_admin
   end
 end
