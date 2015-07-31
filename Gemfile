@@ -12,13 +12,11 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 
+gem 'bootstrap-sass', '~> 3.3.4'
+gem 'slim-rails'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer'
-
-gem 'rack-mini-profiler'
-gem 'flamegraph'
-gem 'stackprof' # ruby 2.1+ only
-gem 'memory_profiler'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -37,8 +35,18 @@ gem "puma"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'rack-mini-profiler'
+gem 'flamegraph'
+gem 'stackprof' # ruby 2.1+ only
+gem 'memory_profiler'
+
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+
+  gem 'factory_girl_rails', '~> 4.5.0'
 
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -50,9 +58,19 @@ group :development, :test do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
+  gem 'letter_opener'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
 
 end
 
+group :development do
+  gem 'bullet'
+
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
+end
