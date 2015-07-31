@@ -24,7 +24,7 @@ class ProductsController < ApplicationController
   def add_to_basket
     respond_to do |format|
       if current_user.add_to_basket @product
-        format.html { redirect_to basket_path, notice: "#{@product.name} has been added to your cart" }
+        format.html { redirect_to basket_items_path, notice: "#{@product.name} has been added to your cart" }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :show, notice: "There was an error adding the product to your card" }

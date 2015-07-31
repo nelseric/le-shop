@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  resources :products
+  
+  resources :basket, controller: "basket_items", as: "basket_items"
+  
+  resources :products do
+    member do 
+      get :add_to_basket
+    end
+  end
 
   devise_for :users, :controllers => { :sessions => 'sessions' }, skip: [:registrations]
   devise_for :admins, skip: [:sessions, :registrations]

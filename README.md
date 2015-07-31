@@ -29,13 +29,14 @@ LineItems belong_to Product, quantity
 Order has enum status (Placed, Paid, Shipped)
 
 When a User places an order,
-  He adds a product to his basket
-  He clicks Check out
-  He enters his payment and shipping information
-  He clicks Place Order
-  A payment transaction is created and the Customer is charged
-  The Admin packages and ships the order
-  The Admin marks the order as shipped and provides tracking information.
+
+1. He adds a product to his basket
+2. He clicks Check out
+3. He enters his payment and shipping information
+4. He clicks Place Order
+5. A payment transaction is created and the Customer is charged
+6. The Admin packages and ships the order
+7. The Admin marks the order as shipped and provides tracking information.
 
 
 

@@ -2,7 +2,12 @@
   = link_to products_path, class: 'btn btn-default' do 
     span.glyphicon.glyphicon-list-alt
     |  Back 
-  = link_to edit_product_path(@product), class: 'btn btn-primary' do 
+
+  = link_to add_to_basket_product_path(@product), class: 'btn btn-primary' do
+    span.glyphicon.glyphicon-shopping-cart
+    |  Add to cart
+
+  = link_to edit_product_path(@product), class: 'btn btn-danger' do 
     span.glyphicon.glyphicon-pencil
     |  Edit 
   h1
@@ -12,3 +17,7 @@ dl.dl-horizontal
     | Name:
   dd
     = @product.name
+  dt
+    | Price:
+  dd
+    = humanized_money_with_symbol @product.price

@@ -19,4 +19,8 @@ class User < ActiveRecord::Base
   def clear_basket
     basket_items.destroy_all
   end
+
+  def basket_count
+    basket_items.select("SUM(quantity) as basket_count").first.basket_count
+  end
 end

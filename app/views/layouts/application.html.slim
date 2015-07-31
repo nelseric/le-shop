@@ -28,6 +28,7 @@ html lang="en"
           ul.nav.navbar-nav
             li = nav_link "Products", root_path
           ul.nav.navbar-nav.navbar-right
+            li = nav_link "Basket", basket_items_path
             - if current_user.try :admin?
               li
                 / = nav_link "Admin", rails_admin_path
