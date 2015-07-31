@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 
   def build_order
     order = Order.new(user: self)
-    order.order_items = basket_items.map{|item| OrderItem.new product: item.product, quantity: item.quantity  }
+    order.order_items = basket_items.includes(:product).map{|item| OrderItem.new product: item.product, quantity: item.quantity  }
     order
   end
 end

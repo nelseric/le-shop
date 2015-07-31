@@ -8,19 +8,23 @@
         th User
         th Item Count
         th Order Total
-        th Status
-        th Stripe token
-        th
-        th
-        th
+        th Payment Status
+        th Shipping Status
+        th Ations
     tbody
       - @orders.each do | order |
         tr
           td = order.user_email
           td = order.item_count
           td = humanized_money_with_symbol order.subtotal
-          td = order.status
-          td = order.stripe_token
-          td = link_to'Show', order, class: 'btn btn-primary'
-          td = link_to 'Edit', edit_order_path(order) 
-          td = link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } 
+          td = order.payment_status.humanize
+          td = order.shipping_status.humanize
+          td
+            = link_to order, class: 'btn btn-primary' do
+              span.glyphicon.glyphicon-info-sign
+              |  Show
+            |  
+            - if order.can_ship?
+              = link_to ship_order_path(order), class: 'btn btn-warning' do
+                span.glyphicon.glyphicon-road
+                |  Mark as shipped

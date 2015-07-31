@@ -1,15 +1,34 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :pay, :ship]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.all.includes(:user)
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
+  end
+
+  def place
+    @order = current_user.build_order
+    if @order.save
+      render :show
+    else
+      redirect_to basket_items_path(current_user), notice: "There was an error creating your order."
+    end
+  end
+
+  def pay
+    @order.paid!
+    render :show
+  end
+
+  def ship
+    @order.shipped!
+    render :show
   end
 
   private

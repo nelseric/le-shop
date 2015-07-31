@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731201229) do
+ActiveRecord::Schema.define(version: 20150731212328) do
 
   create_table "basket_items", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -36,11 +36,12 @@ ActiveRecord::Schema.define(version: 20150731201229) do
   add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "user_id",      limit: 4
-    t.string   "stripe_token", limit: 255
-    t.integer  "status",       limit: 4,   default: 0
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.integer  "user_id",         limit: 4
+    t.string   "stripe_token",    limit: 255
+    t.integer  "payment_status",  limit: 4,   default: 0
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "shipping_status", limit: 4,   default: 0
   end
 
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree

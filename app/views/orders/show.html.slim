@@ -2,9 +2,10 @@
   = link_to orders_path, class: 'btn btn-default' do 
     span.glyphicon.glyphicon-list-alt
     |  Back 
-  = link_to edit_order_path(@order), class: 'btn btn-primary' do 
-    span.glyphicon.glyphicon-pencil
-    |  Edit 
+  - if @order.can_ship?
+    = link_to ship_order_path(@order), class: 'btn btn-warning' do
+      span.glyphicon.glyphicon-road
+      |  Mark as shipped
   h1
     | Show order
 dl.dl-horizontal
@@ -13,32 +14,37 @@ dl.dl-horizontal
   dd
     = @order.user_email
   dt
-    | Status:
+    | Payment Status:
   dd
-    = @order.status
+    = @order.payment_status.humanize
+  dt
+    | Shipping Status:
+  dd
+    = @order.shipping_status.humanize
   dt
     | Stripe token:
   dd
     = @order.stripe_token
 .h3 Items
-table.table.table-striped
-  tr
-    th Line ID
-    th Product
-    th Unit Price
-    th Qty
-    th Subtotal
-  - @order.order_items.includes(:product).each do |order_item|
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
     tr
-      td order_item.id
-      td = link_to order_item.product_name, order_item.product
-      td = order_item.product_price
-      td = order_item.quantity
-      td = humanized_money_with_symbol order_item.subtotal
-  tr
-    th
-    th
-    th Totals
-    th = @order.item_count
-    th = humanized_money_with_symbol @order.subtotal
+      th Line ID
+      th Product
+      th Unit Price
+      th Qty
+      th Subtotal
+    - @order.order_items.includes(:product).each do |order_item|
+      tr
+        td order_item.id
+        td = link_to order_item.product_name, order_item.product
+        td = order_item.product_price
+        td = order_item.quantity
+        td = humanized_money_with_symbol order_item.subtotal
+    tr
+      th
+      th
+      th Totals
+      th = @order.item_count
+      th = humanized_money_with_symbol @order.subtotal
 
