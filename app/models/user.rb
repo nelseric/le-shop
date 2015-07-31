@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
     false
   end
 
-  def add_to_basket product
-    if item = basket_items.where(product: product).first
+  def add_to_basket(product)
+    if item = basket_items.find_by(product: product)
       item.increment! :quantity
     else
       basket_items << BasketItem.new(product: product, quantity: 1)
