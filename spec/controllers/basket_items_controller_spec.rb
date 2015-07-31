@@ -52,13 +52,6 @@ RSpec.describe BasketItemsController, type: :controller do
     end
   end
 
-  describe "GET #new" do
-    it "assigns a new basket_item as @basket_item" do
-      get :new, {}, valid_session
-      expect(assigns(:basket_item)).to be_a_new(BasketItem)
-    end
-  end
-
   describe "GET #edit" do
     it "assigns the requested basket_item as @basket_item" do
       basket_item = BasketItem.create! valid_attributes

@@ -16,11 +16,17 @@ class User < ActiveRecord::Base
     end
   end
 
-  def clear_basket
+  def empty_basket
     basket_items.destroy_all
   end
 
   def basket_count
-    basket_items.select("SUM(quantity) as basket_count").first.basket_count
+    basket_items.pluck("SUM(quantity)").first
+  end
+
+  def build_order
+    order = Order.new(user: self)
+    order.order_items = basket_items.map{|item| OrderItem.new product: item.product, quantity: item.quantity  }
+    order
   end
 end

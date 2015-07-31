@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731174345) do
+ActiveRecord::Schema.define(version: 20150731201229) do
 
   create_table "basket_items", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
@@ -23,6 +23,27 @@ ActiveRecord::Schema.define(version: 20150731174345) do
 
   add_index "basket_items", ["product_id"], name: "index_basket_items_on_product_id", using: :btree
   add_index "basket_items", ["user_id"], name: "index_basket_items_on_user_id", using: :btree
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer  "order_id",   limit: 4
+    t.integer  "product_id", limit: 4
+    t.integer  "quantity",   limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
+  add_index "order_items", ["product_id"], name: "index_order_items_on_product_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id",      limit: 4
+    t.string   "stripe_token", limit: 255
+    t.integer  "status",       limit: 4,   default: 0
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "name",           limit: 255,                 null: false
@@ -53,4 +74,7 @@ ActiveRecord::Schema.define(version: 20150731174345) do
 
   add_foreign_key "basket_items", "products"
   add_foreign_key "basket_items", "users"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "users"
 end

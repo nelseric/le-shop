@@ -1,0 +1,26 @@
+.page-header
+  h1 Listing Orders
+
+.table-responsive
+  table.table.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th User
+        th Item Count
+        th Order Total
+        th Status
+        th Stripe token
+        th
+        th
+        th
+    tbody
+      - @orders.each do | order |
+        tr
+          td = order.user_email
+          td = order.item_count
+          td = humanized_money_with_symbol order.subtotal
+          td = order.status
+          td = order.stripe_token
+          td = link_to'Show', order, class: 'btn btn-primary'
+          td = link_to 'Edit', edit_order_path(order) 
+          td = link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } 

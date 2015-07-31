@@ -1,0 +1,44 @@
+.page-header
+  = link_to orders_path, class: 'btn btn-default' do 
+    span.glyphicon.glyphicon-list-alt
+    |  Back 
+  = link_to edit_order_path(@order), class: 'btn btn-primary' do 
+    span.glyphicon.glyphicon-pencil
+    |  Edit 
+  h1
+    | Show order
+dl.dl-horizontal
+  dt
+    | User:
+  dd
+    = @order.user_email
+  dt
+    | Status:
+  dd
+    = @order.status
+  dt
+    | Stripe token:
+  dd
+    = @order.stripe_token
+.h3 Items
+table.table.table-striped
+  tr
+    th Line ID
+    th Product
+    th Unit Price
+    th Qty
+    th Subtotal
+  - @order.order_items.includes(:product).each do |order_item|
+    tr
+      td order_item.id
+      td = link_to order_item.product_name, order_item.product
+      td = order_item.product_price
+      td = order_item.quantity
+      td = humanized_money_with_symbol order_item.subtotal
+  tr
+    th
+    th
+    th Totals
+    th = @order.item_count
+    th = humanized_money_with_symbol @order.subtotal
+

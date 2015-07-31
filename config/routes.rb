@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
   
+  resources :orders, only: [:index, :show] do
+    # collection do
+    #   get :place
+    # end
+    # member do
+      
+    # end
+  end
+
   resources :basket, controller: "basket_items", as: "basket_items"
   
   resources :products do

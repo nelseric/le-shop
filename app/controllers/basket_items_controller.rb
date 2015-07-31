@@ -12,11 +12,6 @@ class BasketItemsController < ApplicationController
   def show
   end
 
-  # GET /basket_items/new
-  def new
-    @basket_item = BasketItem.new
-  end
-
   # GET /basket_items/1/edit
   def edit
   end
