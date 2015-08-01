@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
     basket_items.pluck("SUM(quantity)").first
   end
 
+  def basket_total
+    basket_items.includes(:products).sum(&:subtotal)
+  end
+
   def build_order
     order = Order.new(user: self)
     order.order_items = basket_items.includes(:product).map{|item| OrderItem.new product: item.product, quantity: item.quantity  }

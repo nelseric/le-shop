@@ -4,7 +4,7 @@ class BasketItemsController < ApplicationController
   # GET /basket_items
   # GET /basket_items.json
   def index
-    @basket_items = BasketItem.all.includes(:product)
+    @basket_items = current_user.basket_items.includes(:product)
   end
 
   # GET /basket_items/1
