@@ -17,13 +17,13 @@ Customer can add Products to Basket.
 
 Customer has_many BasketItems
 
-BasketItems belongs_to Product
+BasketItems belongs_to Product  
 BasketItems have quantity
 
 Customer has_many Orders
 
-Order has timestamps, payment info
-Order has_many LineItems
+Order has timestamps, payment info  
+Order has_many LineItems  
 LineItems belong_to Product, quantity
 
 Order has enum status (Placed, Paid, Shipped)
@@ -40,6 +40,6 @@ When a User places an order,
 
 
 
-The Admin can view all orders
-The Admin can cancel orders that have not been shipped
-The Admin can mark an order as shipped
+The Admin can view all orders  
+The Admin can cancel orders that have not been shipped  
+The Admin can mark an order as shipped  
