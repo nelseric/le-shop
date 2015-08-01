@@ -21,11 +21,11 @@ class User < ActiveRecord::Base
   end
 
   def basket_count
-    basket_items.pluck("SUM(quantity)").first
+    basket_items.pluck("SUM(quantity)").first || 0
   end
 
   def basket_total
-    basket_items.includes(:products).sum(&:subtotal)
+    basket_items.includes(:product).map(&:subtotal).sum
   end
 
   def build_order

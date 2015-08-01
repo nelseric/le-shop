@@ -26,18 +26,23 @@ html lang="en"
         /.navbar-header
         .collapse.navbar-collapse id="navbar-main-collapse"
           ul.nav.navbar-nav
-            li = nav_link "Products", root_path
-            li = nav_link "Orders", orders_path
+            = nav_link "Products", root_path
+            - if current_user.try :admin
+              = nav_link "All Orders", orders_path
           ul.nav.navbar-nav.navbar-right
-            li = nav_link "Basket", basket_items_path
-            - if current_user.try :admin?
-              li
-                / = nav_link "Admin", rails_admin_path
-                = nav_link "Admin", "#"
             - if user_signed_in?
-              li = nav_link('Sign Out', destroy_user_session_path, :method => :delete)
+              li class=(current_page?(basket_items_path) ? "active" : "")
+                = link_to basket_items_path do
+                  span.glyphicon.glyphicon-shopping-cart
+                  |  Basket
+              li = link_to(destroy_user_session_path, :method => :delete) do
+                  span.glyphicon.glyphicon-log-out
+                  |   Sign Out
             - else
-              li = nav_link('Sign In', new_user_session_path)
+              li class=(current_page?(new_user_session_path) ? "active" : "" )
+                = link_to(new_user_session_path, class: 'active') do
+                  span.glyphicon.glyphicon-log-in
+                  |   Sign In or Sign Up
           /.navbar-right
         /.collaps.navbar-collapse
     .container

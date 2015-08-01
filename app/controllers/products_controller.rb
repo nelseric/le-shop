@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+  before_action :authenticate_user!, except: :index
+  before_action :require_admin, except: [:index, :add_to_basket]
+
   before_action :set_product, only: [:show, :edit, :update, :destroy, :add_to_basket]
 
   # GET /products

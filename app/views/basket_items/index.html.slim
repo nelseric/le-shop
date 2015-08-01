@@ -2,7 +2,7 @@
   h1 Items in your basket
 
 .table-responsive
-  table.table.table-striped.table-bordered.table-hover
+  table.table.table-striped.table-hover
     thead
       tr
         th Name
@@ -16,14 +16,14 @@
           td = link_to basket_item.product_name, basket_item.product
           td = basket_item.product_price
           td = basket_item.quantity
-          td = basket_item.subtotal
+          td = humanized_money_with_symbol basket_item.subtotal
           td = link_to 'Remove', basket_item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
       tr
         th
+        th 
+        th Total: 
+        th = humanized_money_with_symbol @user.basket_total
         th
-        th
-        th = @user.basket_count
-        th = @user.basket_total
 
 .text-right
   = link_to place_orders_path, class: 'btn btn-lg btn-primary' do

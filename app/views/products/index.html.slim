@@ -6,21 +6,20 @@
     | Listing products
 
 .table-responsive
-  table.table.table-striped.table-bordered.table-hover
+  table.table.table-striped.table-hover
     thead
       tr
-        th Name
-        th Price
-        th 
-        th
-        th
-        th
+        th.col-sm-8 Name
+        th.col-sm-1 Price
+        th.col-sm-3
     tbody
       - @products.each do | product |
         tr
-          td = product.name
+          td = link_to product.name, product
           td = humanized_money_with_symbol product.price
-          td = link_to 'Add to Basket', add_to_basket_product_path(product)
-          td = link_to 'Show', product
-          td = link_to 'Edit', edit_product_path(product) 
-          td = link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } 
+          td.text-right
+            .btn-group
+              = link_to 'Add to Basket', add_to_basket_product_path(product), class: 'btn btn-primary'
+              - if current_user.try :admin?
+                = link_to 'Edit', edit_product_path(product), class: 'btn btn-default'
+                = link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
