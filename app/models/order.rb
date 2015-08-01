@@ -2,7 +2,7 @@ class Order < ActiveRecord::Base
   belongs_to :user
   has_many :order_items
 
-  enum payment_status: [:placed, :paid]
+  enum payment_status: [:unpaid, :paid]
   enum shipping_status: [:not_shipped, :shipped]
 
   def user_email

@@ -20,6 +20,11 @@ require 'rails_helper'
 
 RSpec.describe BasketItemsController, type: :controller do
 
+  let(:user) { create :customer }
+  before(:each) do 
+    sign_in user
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # BasketItem. As you add validations to BasketItem, be sure to
   # adjust the attributes here as well.

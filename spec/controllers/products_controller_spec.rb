@@ -19,6 +19,11 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe ProductsController, type: :controller do
+  let(:user) { create :admin }
+  before(:each) do 
+    sign_in user
+  end
+
   let(:valid_attributes) do
     attributes_for(:product)
   end

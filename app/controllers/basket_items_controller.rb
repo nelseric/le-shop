@@ -1,5 +1,7 @@
 class BasketItemsController < ApplicationController
   before_action :set_basket_item, only: [:show, :edit, :update, :destroy]
+  
+  before_action :authenticate_user!
 
   # GET /basket_items
   # GET /basket_items.json
@@ -52,7 +54,15 @@ class BasketItemsController < ApplicationController
   def destroy
     @basket_item.destroy
     respond_to do |format|
-      format.html { redirect_to basket_items_url, notice: 'Basket item was successfully destroyed.' }
+      format.html { redirect_to basket_items_url, notice: 'Basket item was successfully removed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def empty
+    current_user.empty_basket
+    respond_to do |format|
+      format.html { redirect_to basket_items_url, notice: 'All items have been removed from the basket.' }
       format.json { head :no_content }
     end
   end

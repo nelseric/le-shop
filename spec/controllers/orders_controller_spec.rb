@@ -19,6 +19,10 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe OrdersController, type: :controller do
+  let(:user) { create :admin }
+  before(:each) do 
+    sign_in user
+  end
 
   # This should return the minimal set of attributes required to create a valid
   # Order. As you add validations to Order, be sure to

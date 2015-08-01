@@ -5,7 +5,6 @@
   table.table.table-striped.table-bordered.table-hover
     thead
       tr
-        th User
         th Item Count
         th Order Total
         th Payment Status
@@ -14,7 +13,6 @@
     tbody
       - @orders.each do | order |
         tr
-          td = order.user_email
           td = order.item_count
           td = humanized_money_with_symbol order.subtotal
           td = order.payment_status.humanize
@@ -23,8 +21,3 @@
             = link_to order, class: 'btn btn-primary' do
               span.glyphicon.glyphicon-info-sign
               |  Show
-            |  
-            - if order.can_ship?
-              = link_to ship_order_path(order), method: :post, class: 'btn btn-warning' do
-                span.glyphicon.glyphicon-road
-                |  Mark as shipped

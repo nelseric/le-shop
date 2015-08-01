@@ -27,7 +27,7 @@ html lang="en"
         .collapse.navbar-collapse id="navbar-main-collapse"
           ul.nav.navbar-nav
             = nav_link "Products", root_path
-            - if current_user.try :admin
+            - if current_user.try :admin?
               = nav_link "All Orders", orders_path
           ul.nav.navbar-nav.navbar-right
             - if user_signed_in?
@@ -35,6 +35,12 @@ html lang="en"
                 = link_to basket_items_path do
                   span.glyphicon.glyphicon-shopping-cart
                   |  Basket
+
+              li class=(current_page?(user_orders_orders_path) ? "active" : "")
+                = link_to user_orders_orders_path do
+                  span.glyphicon.glyphicon-credit-card
+                  |  My Orders
+
               li = link_to(destroy_user_session_path, :method => :delete) do
                   span.glyphicon.glyphicon-log-out
                   |   Sign Out

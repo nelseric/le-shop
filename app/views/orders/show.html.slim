@@ -1,13 +1,18 @@
 .page-header
-  = link_to orders_path, class: 'btn btn-default' do 
-    span.glyphicon.glyphicon-list-alt
-    |  Back 
-  - if @order.can_ship?
-    = link_to ship_order_path(@order), class: 'btn btn-warning' do
-      span.glyphicon.glyphicon-road
-      |  Mark as shipped
+  - if current_user.admin?
+    = link_to orders_path, class: 'btn btn-default' do 
+      span.glyphicon.glyphicon-list-alt
+      |  Back 
+    - if @order.can_ship?
+      = link_to ship_order_path(@order), method: :post, class: 'btn btn-warning' do
+        span.glyphicon.glyphicon-road
+        |  Mark as shipped
+  - else
+    = link_to :root, class: 'btn btn-default' do 
+      span.glyphicon.glyphicon-list-alt
+      |  Back 
   h1
-    | Show order
+    | Order Info
 dl.dl-horizontal
   dt
     | User:
@@ -25,6 +30,7 @@ dl.dl-horizontal
     | Stripe token:
   dd
     = @order.stripe_token
+
 .h3 Items
 .table-responsive
   table.table.table-striped.table-bordered.table-hover
@@ -47,4 +53,14 @@ dl.dl-horizontal
       th Totals
       th = @order.item_count
       th = humanized_money_with_symbol @order.subtotal
-
+.text-right      
+  -if @order.unpaid?
+    = form_tag pay_order_path(@order) do
+      article
+        label.amount
+          span Amount: #{humanized_money_with_symbol @order.subtotal}
+      script { src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key=(Rails.configuration.stripe[:publishable_key])
+        data-description=("Le Shop Order \##{@order.id}")
+        data-email=(current_user.email)
+        data-amount=(@order.subtotal.cents) }
