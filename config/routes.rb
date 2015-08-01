@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   resources :orders, only: [:index, :show] do
     collection do
       get :place
@@ -7,7 +6,7 @@ Rails.application.routes.draw do
     end
     member do
       post :pay
-      post :ship 
+      post :ship
     end
   end
 
@@ -17,9 +16,8 @@ Rails.application.routes.draw do
     end
   end
 
-  
   resources :products do
-    member do 
+    member do
       get :add_to_basket
     end
   end

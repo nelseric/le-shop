@@ -2,13 +2,9 @@ class BasketItem < ActiveRecord::Base
   belongs_to :user
   belongs_to :product
 
-  def product_name
-    product.name
-  end
+  delegate :name, to: :product, prefix: true
 
-  def product_price
-    product.price
-  end
+  delegate :price, to: :product, prefix: true
 
   def subtotal
     product.price * quantity

@@ -1,6 +1,6 @@
 class BasketItemsController < ApplicationController
   before_action :set_basket_item, only: [:show, :edit, :update, :destroy]
-  
+
   before_action :authenticate_user!
 
   # GET /basket_items
@@ -68,13 +68,14 @@ class BasketItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_basket_item
-      @basket_item = BasketItem.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def basket_item_params
-      params[:basket_item]
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_basket_item
+    @basket_item = BasketItem.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def basket_item_params
+    params[:basket_item]
+  end
 end

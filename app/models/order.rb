@@ -5,9 +5,7 @@ class Order < ActiveRecord::Base
   enum payment_status: [:unpaid, :paid]
   enum shipping_status: [:not_shipped, :shipped]
 
-  def user_email
-    user.email
-  end
+  delegate :email, to: :user, prefix: true
 
   def item_count
     order_items.pluck("SUM(quantity)").first

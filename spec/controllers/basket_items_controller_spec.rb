@@ -19,22 +19,21 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe BasketItemsController, type: :controller do
-
   let(:user) { create :customer }
-  before(:each) do 
+  before(:each) do
     sign_in user
   end
 
   # This should return the minimal set of attributes required to create a valid
   # BasketItem. As you add validations to BasketItem, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
+  let(:valid_attributes) do
     skip("Add a hash of attributes valid for your model")
-  }
+  end
 
-  let(:invalid_attributes) {
+  let(:invalid_attributes) do
     skip("Add a hash of attributes invalid for your model")
-  }
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -52,7 +51,7 @@ RSpec.describe BasketItemsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested basket_item as @basket_item" do
       basket_item = BasketItem.create! valid_attributes
-      get :show, {:id => basket_item.to_param}, valid_session
+      get :show, { :id => basket_item.to_param }, valid_session
       expect(assigns(:basket_item)).to eq(basket_item)
     end
   end
@@ -60,7 +59,7 @@ RSpec.describe BasketItemsController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested basket_item as @basket_item" do
       basket_item = BasketItem.create! valid_attributes
-      get :edit, {:id => basket_item.to_param}, valid_session
+      get :edit, { :id => basket_item.to_param }, valid_session
       expect(assigns(:basket_item)).to eq(basket_item)
     end
   end
@@ -68,31 +67,31 @@ RSpec.describe BasketItemsController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       it "creates a new BasketItem" do
-        expect {
-          post :create, {:basket_item => valid_attributes}, valid_session
-        }.to change(BasketItem, :count).by(1)
+        expect do
+          post :create, { :basket_item => valid_attributes }, valid_session
+        end.to change(BasketItem, :count).by(1)
       end
 
       it "assigns a newly created basket_item as @basket_item" do
-        post :create, {:basket_item => valid_attributes}, valid_session
+        post :create, { :basket_item => valid_attributes }, valid_session
         expect(assigns(:basket_item)).to be_a(BasketItem)
         expect(assigns(:basket_item)).to be_persisted
       end
 
       it "redirects to the created basket_item" do
-        post :create, {:basket_item => valid_attributes}, valid_session
+        post :create, { :basket_item => valid_attributes }, valid_session
         expect(response).to redirect_to(BasketItem.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved basket_item as @basket_item" do
-        post :create, {:basket_item => invalid_attributes}, valid_session
+        post :create, { :basket_item => invalid_attributes }, valid_session
         expect(assigns(:basket_item)).to be_a_new(BasketItem)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {:basket_item => invalid_attributes}, valid_session
+        post :create, { :basket_item => invalid_attributes }, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -100,26 +99,26 @@ RSpec.describe BasketItemsController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_attributes) {
+      let(:new_attributes) do
         skip("Add a hash of attributes valid for your model")
-      }
+      end
 
       it "updates the requested basket_item" do
         basket_item = BasketItem.create! valid_attributes
-        put :update, {:id => basket_item.to_param, :basket_item => new_attributes}, valid_session
+        put :update, { :id => basket_item.to_param, :basket_item => new_attributes }, valid_session
         basket_item.reload
         skip("Add assertions for updated state")
       end
 
       it "assigns the requested basket_item as @basket_item" do
         basket_item = BasketItem.create! valid_attributes
-        put :update, {:id => basket_item.to_param, :basket_item => valid_attributes}, valid_session
+        put :update, { :id => basket_item.to_param, :basket_item => valid_attributes }, valid_session
         expect(assigns(:basket_item)).to eq(basket_item)
       end
 
       it "redirects to the basket_item" do
         basket_item = BasketItem.create! valid_attributes
-        put :update, {:id => basket_item.to_param, :basket_item => valid_attributes}, valid_session
+        put :update, { :id => basket_item.to_param, :basket_item => valid_attributes }, valid_session
         expect(response).to redirect_to(basket_item)
       end
     end
@@ -127,13 +126,13 @@ RSpec.describe BasketItemsController, type: :controller do
     context "with invalid params" do
       it "assigns the basket_item as @basket_item" do
         basket_item = BasketItem.create! valid_attributes
-        put :update, {:id => basket_item.to_param, :basket_item => invalid_attributes}, valid_session
+        put :update, { :id => basket_item.to_param, :basket_item => invalid_attributes }, valid_session
         expect(assigns(:basket_item)).to eq(basket_item)
       end
 
       it "re-renders the 'edit' template" do
         basket_item = BasketItem.create! valid_attributes
-        put :update, {:id => basket_item.to_param, :basket_item => invalid_attributes}, valid_session
+        put :update, { :id => basket_item.to_param, :basket_item => invalid_attributes }, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -142,16 +141,15 @@ RSpec.describe BasketItemsController, type: :controller do
   describe "DELETE #destroy" do
     it "destroys the requested basket_item" do
       basket_item = BasketItem.create! valid_attributes
-      expect {
-        delete :destroy, {:id => basket_item.to_param}, valid_session
-      }.to change(BasketItem, :count).by(-1)
+      expect do
+        delete :destroy, { :id => basket_item.to_param }, valid_session
+      end.to change(BasketItem, :count).by(-1)
     end
 
     it "redirects to the basket_items list" do
       basket_item = BasketItem.create! valid_attributes
-      delete :destroy, {:id => basket_item.to_param}, valid_session
+      delete :destroy, { :id => basket_item.to_param }, valid_session
       expect(response).to redirect_to(basket_items_url)
     end
   end
-
 end

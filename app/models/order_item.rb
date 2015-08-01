@@ -6,11 +6,7 @@ class OrderItem < ActiveRecord::Base
     product.price * quantity
   end
 
-  def product_name
-    product.name
-  end
+  delegate :name, to: :product, prefix: true
 
-  def product_price
-    product.price
-  end
+  delegate :price, to: :product, prefix: true
 end

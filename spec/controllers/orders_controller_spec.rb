@@ -20,16 +20,16 @@ require 'rails_helper'
 
 RSpec.describe OrdersController, type: :controller do
   let(:user) { create :admin }
-  before(:each) do 
+  before(:each) do
     sign_in user
   end
 
   # This should return the minimal set of attributes required to create a valid
   # Order. As you add validations to Order, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
+  let(:valid_attributes) do
     attributes_for(:order)
-  }
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -47,7 +47,7 @@ RSpec.describe OrdersController, type: :controller do
   describe "GET #show" do
     it "assigns the requested order as @order" do
       order = Order.create! valid_attributes
-      get :show, {:id => order.to_param}, valid_session
+      get :show, { :id => order.to_param }, valid_session
       expect(assigns(:order)).to eq(order)
     end
   end
