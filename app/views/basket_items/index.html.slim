@@ -8,7 +8,7 @@
         th Name
         th Unit Price
         th Quantity
-        th Line Price
+        th Price
         th Actions
     tbody
       - @basket_items.each do | basket_item |
@@ -24,10 +24,13 @@
         th Total: 
         th = humanized_money_with_symbol @user.basket_total
         th
-.row
-  .col-md-6
-    = link_to "Empty", empty_basket_items_path, class: 'btn btn-warning'
-  .col-md-5.text-right
-    = link_to place_orders_path, class: 'btn btn-lg btn-primary' do
-      span.glyphicon.glyphicon-shopping-cart
-      |  Check Out
+- if current_user.basket_items.count > 0
+  .row
+    .col-md-6
+      = link_to "Empty", empty_basket_items_path, class: 'btn btn-warning'
+    .col-md-5.text-right
+      = link_to place_orders_path, class: 'btn btn-lg btn-primary' do
+        span.glyphicon.glyphicon-shopping-cart
+        |  Check Out
+- else
+  h3.text-center Your basket is empty

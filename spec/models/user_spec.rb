@@ -30,6 +30,47 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#build_order" do
+    context "There are no items in the basket" do
+      before do
+        user.empty_basket
+      end
+
+      it "returns nil" do
+        expect(user.build_order).to be_nil
+      end
+
+      it "does not create an order" do
+        expect{user.build_order}.to change{Order.count}.by 0
+      end
+    end
+
+    context "There are items in the basket" do
+      let(:products) { build_list :product, 3, price: 25.0 }
+      before do
+        products.each do |product|
+          user.add_to_basket product
+        end
+        user.save
+      end
+
+      it "creates an order" do
+        expect(user.build_order).to be_an Order
+      end
+
+      it "creates a valid order" do
+        expect(user.build_order).to be_valid
+      end
+
+      it "creates corresponding order itesm from the user's basket items" do
+        order = user.build_order
+        order.save!
+        expect(order.order_items.map(&:product)).to match_array(user.basket_items.map(&:product))
+        expect(order.order_items.map(&:quantity)).to match_array(user.basket_items.map(&:quantity))
+      end
+    end
+  end
+
   describe "#item_count" do
     context "The user has items in their basket" do
       let(:products) { build_list :product, 3, price: 25.0 }

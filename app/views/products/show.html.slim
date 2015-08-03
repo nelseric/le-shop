@@ -6,10 +6,10 @@
   = link_to add_to_basket_product_path(@product), class: 'btn btn-primary' do
     span.glyphicon.glyphicon-shopping-cart
     |  Add to cart
-
-  = link_to edit_product_path(@product), class: 'btn btn-danger' do 
-    span.glyphicon.glyphicon-pencil
-    |  Edit 
+  - if current_user.try :admin?
+    = link_to edit_product_path(@product), class: 'btn btn-danger' do 
+      span.glyphicon.glyphicon-pencil
+      |  Edit 
   h1
     | Show product
 dl.dl-horizontal

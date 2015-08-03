@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :basket_items
+  has_many :basket_items, dependent: :destroy
   has_many :orders
 
   def admin?
@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def build_order
+    return if basket_items.count == 0
     order = Order.new(user: self)
     order.order_items = basket_items.includes(:product).map { |item| OrderItem.new product: item.product, quantity: item.quantity  }
     order
