@@ -27,9 +27,13 @@
 - if current_user.basket_items.count > 0
   .row
     .col-md-6
-      = link_to "Empty", empty_basket_items_path, class: 'btn btn-warning'
+      = link_to "Empty", empty_basket_items_path,
+          method: :delete,
+          data: {confirm: "Are you sure you want to remove everything from your basket"},
+          class: 'btn btn-warning'
+
     .col-md-5.text-right
-      = link_to place_orders_path, class: 'btn btn-lg btn-primary' do
+      = link_to place_orders_path, class: 'btn btn-lg btn-primary', method: :post do
         span.glyphicon.glyphicon-shopping-cart
         |  Check Out
 - else

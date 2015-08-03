@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
       end
 
       it "does not create an order" do
-        expect{user.build_order}.to change{Order.count}.by 0
+        expect { user.build_order }.to change { Order.count }.by 0
       end
     end
 

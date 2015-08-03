@@ -20,6 +20,7 @@ class OrdersController < ApplicationController
   def show
   end
 
+  # POST /orders/place
   def place
     @order = current_user.build_order
     if @order.save
@@ -30,12 +31,14 @@ class OrdersController < ApplicationController
     end
   end
 
+  # POST /orders/1/pay
   def pay
     @order.update stripe_token: params["stripeToken"], payment_status: :paid
     flash[:success] = "Payment was successful."
     render :show
   end
 
+  # POST /orders/1/ship
   def ship
     @order.shipped!
     render :show
@@ -48,8 +51,4 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def order_params
-    params.require(:order).permit(:user_id, :stripe_token, :status)
-  end
 end

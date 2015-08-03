@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :orders, only: [:index, :show] do
     collection do
-      get :place
+      post :place
       get :user_orders
     end
     member do
@@ -10,15 +10,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :basket, controller: "basket_items", as: "basket_items" do
+  resources :basket, controller: "basket_items", as: "basket_items", only: [:index, :update, :destroy] do
     collection do
-      get :empty
+      delete :empty
     end
   end
 
   resources :products do
     member do
-      get :add_to_basket
+      post :add_to_basket
     end
   end
 

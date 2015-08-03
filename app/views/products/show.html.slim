@@ -3,7 +3,7 @@
     span.glyphicon.glyphicon-list-alt
     |  Back 
 
-  = link_to add_to_basket_product_path(@product), class: 'btn btn-primary' do
+  = link_to add_to_basket_product_path(@product), method: :post, class: 'btn btn-primary' do
     span.glyphicon.glyphicon-shopping-cart
     |  Add to cart
   - if current_user.try :admin?

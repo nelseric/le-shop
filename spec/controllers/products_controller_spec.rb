@@ -19,7 +19,6 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe ProductsController, type: :controller do
-  
   before(:each) do
     sign_in user
   end
@@ -34,7 +33,7 @@ RSpec.describe ProductsController, type: :controller do
     }
   end
 
-  subject!(:product) { Product.create! valid_attributes}
+  subject!(:product) { Product.create! valid_attributes }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -209,7 +208,7 @@ RSpec.describe ProductsController, type: :controller do
         it "encounters a permission error" do
           put :update, { :id => product.to_param, :product => new_attributes }, valid_session
 
-        expect(response).to redirect_to(root_url)
+          expect(response).to redirect_to(root_url)
         end
       end
     end

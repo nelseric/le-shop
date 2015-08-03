@@ -5,6 +5,7 @@
   table.table.table-striped.table-bordered.table-hover
     thead
       tr
+        th Order Number
         th Item Count
         th Order Total
         th Payment Status
@@ -13,6 +14,7 @@
     tbody
       - @orders.each do | order |
         tr
+          td = order.id
           td = order.item_count
           td = humanized_money_with_symbol order.subtotal
           td = order.payment_status.humanize
