@@ -1,4 +1,4 @@
-h2 Log in
+h2 Sign in
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
   = devise_error_messages!
   .form-group
@@ -14,6 +14,6 @@ h2 Log in
       = f.label :remember_me
         = f.check_box :remember_me
         | Remember Me
-    = f.submit "Log in", class: "btn btn-default"
+    = f.submit "Sign in", class: "btn btn-default"
 
 = render "devise/shared/links"

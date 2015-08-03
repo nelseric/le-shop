@@ -28,7 +28,7 @@ RSpec.describe OrdersController, type: :controller do
   # Order. As you add validations to Order, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    attributes_for(:order)
+    build_attributes(:order)
   end
 
   # This should return the minimal set of values that should be in the session

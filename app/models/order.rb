@@ -2,6 +2,8 @@ class Order < ActiveRecord::Base
   belongs_to :user
   has_many :order_items, dependent: :destroy
 
+  validates :user, :presence => true
+
   enum payment_status: [:unpaid, :paid]
   enum shipping_status: [:not_shipped, :shipped]
 
