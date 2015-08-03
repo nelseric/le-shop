@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   end
 
   def basket_count
-    basket_items.pluck("SUM(quantity)").first || 0
+    basket_items.sum(:quantity)
   end
 
   def basket_total

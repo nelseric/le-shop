@@ -18,3 +18,5 @@ public/assets
 coverage
 
 .env
+
+*.sublime-workspace

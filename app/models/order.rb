@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
   delegate :email, to: :user, prefix: true
 
   def item_count
-    order_items.pluck("SUM(quantity)").first
+    order_items.sum(:quantity)
   end
 
   def subtotal

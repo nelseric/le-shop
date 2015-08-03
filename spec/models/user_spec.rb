@@ -29,4 +29,37 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#item_count" do
+    context "The user has items in their basket" do
+      let(:products) { build_list :product, 3, price: 25.0 }
+      before do
+        products.each do |product|
+          user.add_to_basket product
+        end
+        user.save
+      end
+
+      it "sums the quantity of each basket item" do
+        # user factory gets 3 items, with 1 qty each
+        expect(user.basket_count).to eql 3
+      end
+    end
+  end
+
+  describe "#subtotal" do
+    context "The user has items in their basket" do
+      let(:products) { build_list :product, 3, price: 25.0 }
+      before do
+        products.each do |product|
+          user.add_to_basket product
+        end
+        user.save
+      end
+
+      it "sums the subtotal for all basket items" do
+        expect(user.basket_total).to eql 75.00
+      end
+    end
+  end
 end
