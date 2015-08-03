@@ -14,7 +14,7 @@ class Order < ActiveRecord::Base
   end
 
   def subtotal
-    order_items.includes(:product).map(&:subtotal).sum
+    Money.new order_items.includes(:product).map(&:subtotal).sum
   end
 
   def can_ship?

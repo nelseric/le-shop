@@ -32,5 +32,5 @@ Scenario: Starting the checkout process
 Scenario: I want to pay for my order
   Given I have started checking out
   And I am viewing the order information page
-  When I click "Pay with Card"
+  When I click the stripe button
   Then Stripe should collect payment
