@@ -46,7 +46,7 @@ class BasketItemsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_basket_item
-    @basket_item = BasketItem.find(params[:id])
+    @basket_item = BasketItem.where(user: current_user).find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

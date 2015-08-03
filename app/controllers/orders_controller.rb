@@ -11,6 +11,7 @@ class OrdersController < ApplicationController
     @orders = Order.all.includes(:user)
   end
 
+  # GET /user_orders
   def user_orders
     @orders = current_user.orders
   end
@@ -23,11 +24,11 @@ class OrdersController < ApplicationController
   # POST /orders/place
   def place
     @order = current_user.build_order
-    if @order.save
+    if @order.try :save
       current_user.empty_basket
       redirect_to @order
     else
-      redirect_to basket_items_path(current_user), notice: "There was an error creating your order."
+      redirect_to basket_items_path, notice: "There was an error creating your order."
     end
   end
 
@@ -48,7 +49,11 @@ class OrdersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_order
-    @order = Order.find(params[:id])
+    if current_user.try :admin?
+      @order = Order.find(params[:id])
+    else
+      @order = Order.where(user: current_user).find(params[:id])
+    end
   end
 
 end

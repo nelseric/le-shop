@@ -88,6 +88,12 @@ RSpec.describe BasketItemsController, type: :controller do
         put :update, { :id => basket_item.to_param, :basket_item => invalid_attributes }, valid_session
         expect(response).to redirect_to basket_items_path
       end
+
+      it "is not valid" do
+        basket_item = BasketItem.create! valid_attributes
+        put :update, { :id => basket_item.to_param, :basket_item => invalid_attributes }, valid_session
+        expect(assigns(:basket_item)).to_not be_valid
+      end
     end
   end
 

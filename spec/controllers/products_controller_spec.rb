@@ -175,48 +175,64 @@ RSpec.describe ProductsController, type: :controller do
       end
     end
 
-    describe "GET #new" do
-      it "encounters a permission error" do
-        get :new, {}, valid_session
-        expect(response).to redirect_to(root_url)
+    describe "POST #add_to_basket" do
+      it "adds the product to the basket" do
+        expect do
+          post :add_to_basket, {id: product.to_param}, valid_session
+        end.to change(user.basket_items, :count).by 1
       end
+
+      it "stays on the product list page" do
+        post :add_to_basket, {id: product.to_param}, valid_session
+        expect(response).to redirect_to products_path
+      end
+
     end
 
-    describe "GET #edit" do
-      it "encounters a permission error" do
-        get :edit, { :id => product.to_param }, valid_session
-        expect(response).to redirect_to(root_url)
-      end
-    end
-
-    describe "POST #create" do
-      it "encounters a permission error" do
-        post :create, { :product => valid_attributes }, valid_session
-        expect(response).to redirect_to(root_url)
-      end
-    end
-
-    describe "PUT #update" do
-      context "with valid params" do
-        let(:new_attributes) do
-          {
-            name: "this name is different",
-            price: 1234.56
-          }
-        end
-
+    describe "Thinks a customer can't do" do
+      describe "GET #new" do
         it "encounters a permission error" do
-          put :update, { :id => product.to_param, :product => new_attributes }, valid_session
-
+          get :new, {}, valid_session
           expect(response).to redirect_to(root_url)
         end
       end
-    end
 
-    describe "DELETE #destroy" do
-      it "encounters a permission error" do
-        delete :destroy, { :id => product.to_param }, valid_session
-        expect(response).to redirect_to(root_url)
+      describe "GET #edit" do
+        it "encounters a permission error" do
+          get :edit, { :id => product.to_param }, valid_session
+          expect(response).to redirect_to(root_url)
+        end
+      end
+
+      describe "POST #create" do
+        it "encounters a permission error" do
+          post :create, { :product => valid_attributes }, valid_session
+          expect(response).to redirect_to(root_url)
+        end
+      end
+
+      describe "PUT #update" do
+        context "with valid params" do
+          let(:new_attributes) do
+            {
+              name: "this name is different",
+              price: 1234.56
+            }
+          end
+
+          it "encounters a permission error" do
+            put :update, { :id => product.to_param, :product => new_attributes }, valid_session
+
+            expect(response).to redirect_to(root_url)
+          end
+        end
+      end
+
+      describe "DELETE #destroy" do
+        it "encounters a permission error" do
+          delete :destroy, { :id => product.to_param }, valid_session
+          expect(response).to redirect_to(root_url)
+        end
       end
     end
   end
