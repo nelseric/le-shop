@@ -13,7 +13,6 @@ Given(/^there are (\d+) Products$/) do |product_count|
   create_list :product, product_count.to_i
 end
 
-
 When(/^I am on the products index$/) do
   visit '/'
 end
@@ -66,11 +65,11 @@ Given(/^I am viewing the order information page$/) do
 end
 
 When(/^I click the stripe button$/) do
-  # I am just checking if the payment thing is there, 
+  # I am just checking if the payment thing is there,
   # validating that everything right now will take
   # too much time to figure out
 
-  has_css? "form" 
+  has_css? "form"
 end
 
 Then(/^Stripe should collect payment$/) do

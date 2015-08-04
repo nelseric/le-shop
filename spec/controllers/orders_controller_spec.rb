@@ -45,8 +45,8 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe "GET #user_orders" do
-    let!(:user_orders) {create_list(:order, 2, user: user)}
-    let!(:some_other_orders) {create_list(:order, 2)}
+    let!(:user_orders) { create_list(:order, 2, user: user) }
+    let!(:some_other_orders) { create_list(:order, 2) }
 
     it "assigns only the current user's orders" do
       get :user_orders, {}, valid_session
@@ -64,7 +64,7 @@ RSpec.describe OrdersController, type: :controller do
 
   describe "POST #place" do
     context "The user has items in their basket" do
-      before do 
+      before do
         create_list :basket_item, 3, user: user
       end
 
@@ -91,14 +91,14 @@ RSpec.describe OrdersController, type: :controller do
   describe "POST #pay" do
     it "marks the order as paid" do
       order = create :order
-      post :pay, {id: order.to_param, stripeToken: "foo_bar"}
+      post :pay, id: order.to_param, stripeToken: "foo_bar"
       order.reload
       expect(order).to be_paid
     end
 
     it "saves the stripe token" do
       order = create :order
-      post :pay, {id: order.to_param, stripeToken: "foo_bar"}
+      post :pay, id: order.to_param, stripeToken: "foo_bar"
       order.reload
       expect(order.stripe_token).to eq "foo_bar"
     end
@@ -107,7 +107,7 @@ RSpec.describe OrdersController, type: :controller do
   describe "POST #ship" do
     it "marks the order as shipped" do
       order = create :order
-      post :ship, {id: order.to_param}, valid_session
+      post :ship, { id: order.to_param }, valid_session
       order.reload
       expect(order).to be_shipped
     end

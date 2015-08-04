@@ -117,13 +117,14 @@ RSpec.describe BasketItemsController, type: :controller do
       items = create_list :basket_item, 4, user: user
       delete :empty, {}, valid_session
 
-      items.each do |i| 
-        expect{i.reload}.to raise_error ActiveRecord::RecordNotFound
+      items.each do |i|
+        expect { i.reload }.to raise_error ActiveRecord::RecordNotFound
       end
     end
 
     it "redirects to the basket items list" do
-      items = create_list :basket_item, 4, user: user
+      create_list :basket_item, 4, user: user
+
       delete :empty, {}, valid_session
       expect(response).to redirect_to basket_items_path
     end

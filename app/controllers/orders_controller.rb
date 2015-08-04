@@ -55,5 +55,4 @@ class OrdersController < ApplicationController
       @order = Order.where(user: current_user).find(params[:id])
     end
   end
-
 end
