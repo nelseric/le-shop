@@ -74,5 +74,5 @@ When(/^I click the stripe button$/) do
 end
 
 Then(/^Stripe should collect payment$/) do
-  pending "This actually working is not a requirement, so I won't test it right now"
+  # This actually working is not a requirement, so I won't test it right now
 end
